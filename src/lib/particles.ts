@@ -94,11 +94,11 @@ void main(){
   float seed = life.z;
   float bright = life.w;
 
-  vec2 nc = p * (0.0017 / max(u_scale,0.4)) + vec2(u_time*0.04, u_time*0.02);
+  vec2 nc = p * (0.0021 / max(u_scale,0.4)) + vec2(u_time*0.05, u_time*0.03);
   vec2 flow = curlField(nc);
-  v += flow * (46.0 * u_scale) * u_dt;
-  v.y -= 11.0 * u_scale * u_dt;
-  v.x += sin(u_time*0.3 + p.y*0.004 + seed*6.28) * 6.0 * u_scale * u_dt;
+  v += flow * (24.0 * u_scale) * u_dt;
+  v.x += sin(u_time*0.3 + p.y*0.004 + seed*6.28) * 4.0 * u_scale * u_dt;
+  v.y += cos(u_time*0.27 + p.x*0.004 + seed*6.28) * 4.0 * u_scale * u_dt;
 
   float R = 280.0 * u_scale;
   float R2 = R*R;
@@ -136,8 +136,8 @@ void main(){
     float h3 = hash1(v_uv*3.7 + u_time*0.5);
     float h4 = hash1(v_uv*5.1 + u_time*0.2);
     float h5 = hash1(v_uv*7.9 + u_time*0.7);
-    p = vec2(h1 * u_resolution.x, u_resolution.y + 24.0 + h2*70.0);
-    v = vec2((h3-0.5)*26.0, -18.0 - h4*34.0);
+    p = vec2(h1 * u_resolution.x, h2 * u_resolution.y);
+    v = vec2((h3-0.5)*14.0, (h4-0.5)*14.0);
     age = 0.0;
     gsize = 0.7 + h5*1.7;
     bright = 0.55 + hash1(v_uv*9.2)*0.45;
